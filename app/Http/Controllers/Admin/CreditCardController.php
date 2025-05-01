@@ -3,10 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\CreditCardService;
 use Illuminate\Http\Request;
 
 class CreditCardController extends Controller
 {
+
+    protected $service;
+    public function __construct()
+    {
+        $this->service = new CreditCardService();
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -60,6 +68,11 @@ class CreditCardController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $deleted = $this->service->delete($id);
+
+        if ($deleted) {
+            return redirect()->back()->with('success', 'Credit card deleted successfully.');
+        }
+        return redirect()->back()->with('error', 'Failed to delete credit card.');
     }
 }
