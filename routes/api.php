@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Middleware\ApiAuthMiddleware;
 
 Route::group([
 
@@ -13,7 +12,7 @@ Route::group([
     Route::post('login', [AuthController::class, 'login']);
 
     Route::group([
-        'middleware' => 'auth',
+        'middleware' => 'auth:api',
     ], function ($router) {
 
         Route::post('me', [AuthController::class, 'me']);
