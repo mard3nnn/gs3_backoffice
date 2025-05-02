@@ -40,7 +40,8 @@ abstract class BaseRepository
     public function create(array $data)
     {
         try {
-            return $this->model->create($data);
+            $record = $this->model->create($data);
+            return ['error' => false, 'data' => $record, 'message' => 'Dado inserido com sucesso!'];
         } catch (\Exception $e) {
             return ['error' => true, 'message' => $e->getMessage()];
         }

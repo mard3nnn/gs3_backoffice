@@ -28,7 +28,7 @@ class CreditCardController extends Controller
      */
     public function create()
     {
-        //
+        return view("modules.credit_card.create");
     }
 
     /**

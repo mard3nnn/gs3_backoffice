@@ -29,9 +29,9 @@ class CreditCardsTable extends DataTableComponent
                 ->sortable(),
             Column::make("Melhor dia de compra", "best_purchase_day")
                 ->sortable(),
-            Column::make("Limit", "limit")->searchable()
+            Column::make("Limite", "limit")->searchable()
                 ->sortable(),
-            Column::make('Action')
+            Column::make('Ações')
                 ->label(
                     fn($row, Column $column) => view('livewire.datatables.action-column')->with(
                         [
