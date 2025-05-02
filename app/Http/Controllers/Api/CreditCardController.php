@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Repository\CreditCard\CreditCardRepository;
 class CreditCardController extends Controller
 {
-    protected $repository;
+    protected CreditCardRepository $repository;
 
     public function __construct()
     {
@@ -15,12 +15,12 @@ class CreditCardController extends Controller
     }
 
 
-    public function index()
+    public function cards(): \Illuminate\Http\JsonResponse
     {
-        return ResponseFactory::toJson(auth()->user()->creditCards);
+        return ResponseFactory::toJson(auth()->user()->creditCards, success: true);
     }
 
-    public function history($cardId)
+    public function transactions($cardId)
     {
 
         $result = $this->repository->transactions($cardId);
@@ -28,7 +28,7 @@ class CreditCardController extends Controller
         if ($result['error'] ?? false) {
             return $result;
         } else {
-            return ResponseFactory::toJson($result);
+            return ResponseFactory::toJson($result, success: true);
         }
 
     }

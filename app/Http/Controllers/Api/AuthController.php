@@ -3,26 +3,25 @@
 namespace App\Http\Controllers\Api;
 
 use App\Factory\ResponseFactory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
 
-
 class AuthController extends Controller
 {
-
-
     /**
      * Handle user login.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param  Request  $request
+     * @return JsonResponse
      */
-    public function login()
+    public function login(): JsonResponse
     {
         $credentials = request(['email', 'password']);
 
-        if (!$token = auth()->attempt($credentials)) {
+        if (!$token = auth()->guard('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -32,20 +31,20 @@ class AuthController extends Controller
     /**
      * Get the authenticated User.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function me()
+    public function me(): JsonResponse
     {
         $user = response()->json(auth()->user());
-        return ResponseFactory::success($user->original);
+        return ResponseFactory::toJson($user->original);
     }
 
     /**
      * Log the user out (Invalidate the token).
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function logout()
+    public function logout(): JsonResponse
     {
         auth()->logout();
 
@@ -55,21 +54,21 @@ class AuthController extends Controller
     /**
      * Refresh a token.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function refresh()
+    public function refresh(): JsonResponse
     {
         return $this->respondWithToken(auth()->refresh());
     }
 
 
-    protected function respondWithToken($token)
+    protected function respondWithToken($token): JsonResponse
     {
-        return ResponseFactory::success(
+        return ResponseFactory::toJson(
             [
                 'access_token' => "Bearer $token",
-                'success' => true
-            ]
+                'user' => auth()->guard('api')->user()
+            ], success: true,
         );
     }
 

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CreditCard extends Model
 {
@@ -15,13 +17,20 @@ class CreditCard extends Model
         'limit',
     ];
 
-    public function getFormattedLimitAttribute()// formatted_limit
+    protected $appends = ['formatted_limit'];
+
+    public function getFormattedLimitAttribute():String // formatted_limit
     {
-        return 'R$ ' . number_format($this->limit, 2, ',', '.');
+        return 'R$ ' . number_format($this->getAttribute('limit'), 2, ',', '.');
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
     }
 }

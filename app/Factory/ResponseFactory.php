@@ -4,10 +4,10 @@ namespace App\Factory;
 
 class ResponseFactory
 {
-    public static function success($data = [], $message = 'Success', $code = 200)
+    public static function toJson($data = [], $message = null, $code = 200, $success = false)
     {
         return response()->json([
-            'success' => true,
+            'success' => $success,
             'message' => $message,
             'data' => $data,
         ], $code);

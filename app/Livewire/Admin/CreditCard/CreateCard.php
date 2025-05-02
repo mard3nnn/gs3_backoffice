@@ -4,11 +4,11 @@ namespace App\Livewire\Admin\CreditCard;
 
 use App\Repository\CreditCard\CreditCardRepository;
 use App\Repository\UserRepository;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class CreateCard extends Component
 {
-
     public $cardNumber;
     public $cardName;
 
@@ -20,15 +20,15 @@ class CreateCard extends Component
 
     protected $repository;
 
-
-    protected $rules = [
+    protected array $rules = [
         'cardNumber' => 'required|numeric',
         'cardName' => 'required|string|max:255',
         'bestPurchaseDay' => 'required|integer|min:1|max:31',
         'limit' => 'required|numeric|min:0',
         'userId' => 'required|exists:users,id'
     ];
-    protected $messages = [
+
+    protected array $messages = [
         'cardNumber.required' => 'O número do cartão é obrigatório.',
         'cardNumber.numeric' => 'O número do cartão deve ser numérico.',
         'cardName.required' => 'O nome do cartão é obrigatório.',
@@ -43,24 +43,22 @@ class CreateCard extends Component
         'userId.required' => 'O usuário é obrigatório.',
         'userId.exists' => 'O usuário não existe.'
     ];
-    public function __construct()
+
+    public function mount(): void
     {
         $this->repository = new CreditCardRepository();
-    }
 
-    public function mount()
-    {
         $userRepository = new UserRepository();
         $this->userList = $userRepository->list(paginate: false);
-
     }
 
-    public function render()
+
+    public function render(): View
     {
         return view('livewire.admin.credit-card.create-card');
     }
 
-    public function updated($propertyName)
+    public function updated($propertyName): void
     {
         $this->validateOnly($propertyName);
     }

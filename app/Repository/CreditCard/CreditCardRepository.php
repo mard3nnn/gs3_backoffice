@@ -11,4 +11,9 @@ class CreditCardRepository extends BaseRepository
     {
         parent::__construct(new CreditCard());
     }
+
+    public function transactions($cardId)
+    {
+        return $this->model->find($cardId)->transactions;
+    }
 }
