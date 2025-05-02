@@ -13,7 +13,6 @@ class CreditCardsTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id');
-        $this->setSearchLive();
         $this->setSearchPlaceholder('Busque por número, nome ou limite');
 
     }
@@ -35,8 +34,7 @@ class CreditCardsTable extends DataTableComponent
                 ->label(
                     fn($row, Column $column) => view('livewire.datatables.action-column')->with(
                         [
-                            'viewLink' => route('admin.credit-cards.index', $row),
-                            'editLink' => route('admin.credit-cards.index', $row),
+                            'editLink' => route('admin.credit-cards.edit', $row),
                             'deleteLink' => route('admin.credit-cards.destroy', $row),
                         ]
                     )

@@ -52,7 +52,8 @@ class CreditCardController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $card = $this->service->getById($id);
+        return view("modules.credit_card.edit", compact("card"));
     }
 
     /**

@@ -5,7 +5,6 @@ namespace App\Livewire\Admin\CreditCard;
 use App\Repository\CreditCard\CreditCardRepository;
 use App\Repository\UserRepository;
 use Livewire\Component;
-use Log;
 
 class CreateCard extends Component
 {
@@ -66,10 +65,8 @@ class CreateCard extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function save()
+    public function save(): void
     {
-
-
         $data = [
             'number' => $this->cardNumber,
             'card_name' => $this->cardName,

@@ -4,11 +4,7 @@
         <i class="fa fa-cog"></i>
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        @isset($viewLink)
-            <a class="dropdown-item" href="{{ $viewLink }}">
-                <i class="fa fa-eye me-2"></i> Visualizar
-            </a>
-        @endisset
+
 
         @isset($editLink)
             <a class="dropdown-item" href="{{ $editLink }}">
