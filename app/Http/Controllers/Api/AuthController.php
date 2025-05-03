@@ -64,10 +64,13 @@ class AuthController extends Controller
 
     protected function respondWithToken($token): JsonResponse
     {
+        $user = auth()->guard('api')->user();
+
         return ResponseFactory::toJson(
             [
                 'access_token' => "Bearer $token",
-                'user' => auth()->guard('api')->user()
+                'user' => $user,
+                'permissions' => $user->getAllPermissions()->pluck('name')->toArray(),
             ], success: true,
         );
     }

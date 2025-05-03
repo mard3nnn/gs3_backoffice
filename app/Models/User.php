@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -65,7 +66,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return mixed
      */
-    public function getJWTIdentifier()
+    public function getJWTIdentifier(): mixed
     {
         return $this->getKey();
     }
@@ -81,11 +82,11 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function creditCards()
+    public function creditCards(): HasMany
     {
         return $this->hasMany(CreditCard::class);
     }
-    public function transactions()
+    public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
     }
