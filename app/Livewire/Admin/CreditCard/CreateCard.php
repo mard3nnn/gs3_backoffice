@@ -9,16 +9,16 @@ use Livewire\Component;
 
 class CreateCard extends Component
 {
-    public $cardNumber;
-    public $cardName;
+    public string $cardNumber;
+    public string $cardName;
 
-    public $bestPurchaseDay;
-    public $limit;
-    public $userId;
+    public string $bestPurchaseDay;
+    public string $limit;
+    public int $userId;
 
-    public $userList;
+    public array $userList;
 
-    protected $repository;
+    protected CreditCardRepository $repository;
 
     protected array $rules = [
         'cardNumber' => 'required|numeric',

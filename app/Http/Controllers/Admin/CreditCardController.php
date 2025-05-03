@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Services\CreditCardService;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CreditCardController extends Controller
 {
 
-    protected $service;
+    protected CreditCardService $service;
     public function __construct()
     {
         $this->service = new CreditCardService();
@@ -18,7 +20,7 @@ class CreditCardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         return view("modules.credit_card.index");
     }
@@ -26,7 +28,7 @@ class CreditCardController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         return view("modules.credit_card.create");
     }
@@ -50,7 +52,7 @@ class CreditCardController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): View
     {
         $card = $this->service->getById($id);
         return view("modules.credit_card.edit", compact("card"));
@@ -67,7 +69,7 @@ class CreditCardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
         $deleted = $this->service->delete($id);
 

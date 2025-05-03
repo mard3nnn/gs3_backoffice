@@ -14,7 +14,7 @@
 
         @isset($deleteLink)
             <form action="{{ $deleteLink }}" method="POST" x-data
-                @submit.prevent="if (confirm('Are you sure you want to delete this user?')) $el.submit()">
+                @submit.prevent="if (confirm('Você tem certeza que deseja excluir?')) $el.submit()">
                 @method('DELETE')
                 @csrf
                 <button type="submit" class="dropdown-item text-danger">

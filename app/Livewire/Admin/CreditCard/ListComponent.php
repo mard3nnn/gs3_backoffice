@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\CreditCard;
 
 use App\Repository\CreditCard\CreditCardRepository;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,16 +12,16 @@ class ListComponent extends Component
 
     use WithPagination;
 
-    protected $paginationTheme = 'bootstrap';
+    protected string $paginationTheme = 'bootstrap';
 
-    protected $repository;
+    protected CreditCardRepository $repository;
 
-    public $search;
+    public String $search;
     public function __construct()
     {
         $this->repository = new CreditCardRepository();
     }
-    public function render()
+    public function render(): View
     {
         $cardList = $this->repository->list(perPage: 2);
         return view('livewire.admin.credit-card.list-component', compact('cardList'));
