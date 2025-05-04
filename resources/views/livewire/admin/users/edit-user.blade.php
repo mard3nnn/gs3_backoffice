@@ -19,13 +19,25 @@
                    value="{{ old('email', $email ?? '') }}">
         </div>
 
-        <div class="form-group">
-            <label for="profile">Perfis vinculados</label>
-            <small> | Ao clicar o perfil será <b>desvinculado</b>.</small>
-            <br>
-            @foreach($userProfiles as $profile)
-                <span class="btn btn-primary" wire:click='unlinkRole("{{ $profile }}")'>{{ $profile }}</span>
-            @endforeach
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="profile">Perfis vinculados</label>
+                    <small> | Ao clicar o perfil será <b>desvinculado</b>.</small>
+                    <br>
+                    @foreach($userProfiles as $profile)
+                        <span class="btn btn-primary" wire:click='unlinkRole("{{ $profile }}")'>{{ $profile }}</span>
+                    @endforeach
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="profile">Todas permissões do usuário</label><br>
+                    @foreach($permissions as $permission)
+                        <span class="badge badge-dark">{{ $permission }}</span>
+                    @endforeach
+                </div>
+            </div>
         </div>
         <hr>
 

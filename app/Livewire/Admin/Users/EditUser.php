@@ -18,6 +18,8 @@ class EditUser extends Component
 
     public $userProfiles;
 
+    public $permissions;
+
     public $profiles;
 
 
@@ -36,6 +38,9 @@ class EditUser extends Component
         $this->email = $user->email;
         $this->userProfiles = $user->profiles_formatted;
         $this->profiles = Role::all();
+
+        $this->permissions = $user->getAllPermissions()->pluck('name');
+
     }
 
     public function render(): View
