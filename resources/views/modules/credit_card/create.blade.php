@@ -7,7 +7,7 @@
         <h3 class="card-title">Título do Cartão</h3>
     </div>
     <div class="card-body">
-        <livewire:admin.credit-card.create-card :isUpdate="false"/>
+        @livewire('admin.credit-card.create-card', ['isUpdate' => false, 'cardId' => null])
     </div>
 </div>
 

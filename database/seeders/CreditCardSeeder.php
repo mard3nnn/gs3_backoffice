@@ -31,5 +31,21 @@ class CreditCardSeeder extends Seeder
             'best_purchase_day' => 15,
             'limit' => 3000.00,
         ]);
+
+        CreditCard::create([
+            'user_id' => $user->id,
+            'number' => '9999 0000 1111 2222',
+            'card_name' => 'Cartão Terciário',
+            'best_purchase_day' => 20,
+            'limit' => 2000.00,
+        ]);
+
+        CreditCard::create([
+            'user_id' => $user->id,
+            'number' => '0000 6666 1111 0000',
+            'card_name' => 'Cartão Adicional',
+            'best_purchase_day' => 10,
+            'limit' => 1000.00,
+        ]);
     }
 }

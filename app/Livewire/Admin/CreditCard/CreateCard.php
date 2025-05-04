@@ -18,7 +18,7 @@ class CreateCard extends Component
     public int $linkedUser;
 
     public bool $isUpdate;
-    public int $cardId;
+    public ?int $cardId;
     public $userList;
 
     protected CreditCardRepository $repository;
