@@ -86,8 +86,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(CreditCard::class);
     }
+
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function getProfilesFormattedAttribute() // profiles_formatted
+    {
+        return $this->roles->pluck('name');
     }
 }

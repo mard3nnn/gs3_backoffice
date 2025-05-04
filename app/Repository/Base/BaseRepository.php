@@ -21,7 +21,6 @@ abstract class BaseRepository
                 return $this->model->paginate($perPage);
             } else {
                 return $this->model->all();
-
             }
         } catch (\Exception $e) {
             return ['error' => true, 'message' => $e->getMessage()];

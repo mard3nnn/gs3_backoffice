@@ -16,7 +16,7 @@ class CreateCard extends Component
     public string $limit;
     public int $userId;
 
-    public array $userList;
+    public $userList;
 
     protected CreditCardRepository $repository;
 
