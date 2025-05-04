@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\CreditCardController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
-use Livewire\Volt\Volt;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,7 +15,12 @@ Route::view('dashboard', 'dashboard')
 
 Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'admin'], function () {
 
-    Route::resource('credit-cards', \App\Http\Controllers\Admin\CreditCardController::class)->names('admin.credit-cards');
+    Route::resource('users', UserController::class)
+        ->names('admin.users');
+
+    Route::resource('credit-cards', CreditCardController::class)
+        ->only(['index', 'create', 'edit', 'destroy'])
+        ->names('admin.credit-cards');
 
 });
 
