@@ -7,7 +7,8 @@
         <h3 class="card-title">Editar cartão - {{ $card->card_name }}</h3>
     </div>
     <div class="card-body">
-        <livewire:admin.credit-card.create-card />
+
+        @livewire('admin.credit-card.create-card', ['isUpdate' => true, 'cardId' => $card->id])
     </div>
 </div>
 

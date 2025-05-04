@@ -15,13 +15,16 @@ class CreateCard extends Component
     public string $bestPurchaseDay;
     public string $limit;
     public int $userId;
+    public int $linkedUser;
 
+    public bool $isUpdate;
+    public int $cardId;
     public $userList;
 
     protected CreditCardRepository $repository;
 
     protected array $rules = [
-        'cardNumber' => 'required|numeric',
+        'cardNumber' => 'required',
         'cardName' => 'required|string|max:255',
         'bestPurchaseDay' => 'required|integer|min:1|max:31',
         'limit' => 'required|numeric|min:0',
@@ -30,7 +33,6 @@ class CreateCard extends Component
 
     protected array $messages = [
         'cardNumber.required' => 'O número do cartão é obrigatório.',
-        'cardNumber.numeric' => 'O número do cartão deve ser numérico.',
         'cardName.required' => 'O nome do cartão é obrigatório.',
         'cardName.string' => 'O nome do cartão deve ser uma string.',
         'bestPurchaseDay.required' => 'O melhor dia de compra é obrigatório.',
@@ -44,12 +46,21 @@ class CreateCard extends Component
         'userId.exists' => 'O usuário não existe.'
     ];
 
-    public function mount(): void
+    public function mount($isUpdate, $cardId): void
     {
-        $this->repository = new CreditCardRepository();
-
         $userRepository = new UserRepository();
         $this->userList = $userRepository->list(paginate: false);
+
+        $this->isUpdate = $isUpdate;
+        $this->cardId = $cardId;
+
+        if($this->isUpdate) {
+            $repository = new CreditCardRepository();
+            $creditCard = $repository->findById($cardId);
+
+            $this->seedData($creditCard);
+            $this->userId = $creditCard->user_id;
+        }
     }
 
 
@@ -63,6 +74,15 @@ class CreateCard extends Component
         $this->validateOnly($propertyName);
     }
 
+    private function seedData($creditCard): void
+    {
+        $this->cardNumber = $creditCard->number;
+        $this->cardName = $creditCard->card_name;
+        $this->bestPurchaseDay = $creditCard->best_purchase_day;
+        $this->limit = $creditCard->limit;
+        $this->linkedUser = $creditCard->user_id;
+    }
+
     public function save(): void
     {
         $data = [
@@ -73,7 +93,30 @@ class CreateCard extends Component
             'user_id' => $this->userId
         ];
 
-        $response = $this->repository->create($data);
+        if ($this->isUpdate) {
+            $this->updateCard($data);
+        } else {
+            $this->saveCard($data);
+        }
+
+    }
+
+    private function updateCard($data): void
+    {
+        $repository = new CreditCardRepository();
+        $response = $repository->update($this->userId, $data);
+
+        if ($response['error']) {
+            session()->flash('error', 'Erro ao atualizar o cartão de crédito: ' . $response['message']);
+        } else {
+            session()->flash('success', 'Cartão de crédito atualizado com sucesso!');
+        }
+    }
+
+    private function saveCard($data): void
+    {
+        $repository = new CreditCardRepository();
+        $response = $repository->update($this->userId, $data);
 
         if ($response['error']) {
             session()->flash('error', 'Erro ao criar o cartão de crédito: ' . $response['message']);

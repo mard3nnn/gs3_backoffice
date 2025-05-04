@@ -320,10 +320,8 @@ return [
             'route' => 'admin.credit-cards.index',
             'icon' => 'fas fa-fw fa-credit-card',
         ],
-
-        ['header' => 'Usuários'],
         [
-            'text' => 'Listagem',
+            'text' => 'Usuários',
             'route' => 'admin.users.index',
             'icon' => 'fas fa-fw fa-users',
         ],

@@ -28,7 +28,9 @@ class CreditCardsTable extends DataTableComponent
                 ->sortable(),
             Column::make("Melhor dia de compra", "best_purchase_day")
                 ->sortable(),
-            Column::make("Limite", "limit")->searchable()
+            Column::make("Limite", "limit")
+                ->view('partials.tables.transaction_amount')
+                ->searchable()
                 ->sortable(),
             Column::make('Ações')
                 ->label(
