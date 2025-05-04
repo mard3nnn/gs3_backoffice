@@ -7,7 +7,6 @@
             <span>Todos usuários</span>
         </div>
 
-
         <div class="card-body">
             <livewire:tables.users-table/>
         </div>

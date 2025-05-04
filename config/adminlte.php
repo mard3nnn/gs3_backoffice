@@ -323,19 +323,9 @@ return [
 
         ['header' => 'Usuários'],
         [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
+            'text' => 'Listagem',
+            'route' => 'admin.users.index',
+            'icon' => 'fas fa-fw fa-users',
         ],
     ],
 
